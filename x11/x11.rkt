@@ -2184,9 +2184,10 @@ int count;		/* defines range of change w. first_keycode*/
 
   (defx11* XGetWindowAttributes :
 	   _XDisplay-pointer Window
-    (attributes : (_ptr o _XWindowAttributes))
+    (attributes : (_ptr o _XWindowAttributes)) ;;creates (named attributes)pointer so that the caller has not to bother
     -> (status : Status)
     -> (and status attributes))
+
 
   ;(defx11* XOpenDisplay : _string -> _XDisplay-pointer)
   (defx11* XOpenDisplay : _string -> _XDisplay-pointer/null) ; Laurent Orseau -- 2012-10-27
@@ -3030,6 +3031,12 @@ int count;		/* defines range of change w. first_keycode*/
 (defx11* XwcTextPropertyToTextList  : _XDisplay-pointer _XTextProperty-pointer _pointer (_ptr i _int) -> _int)
 (defx11* XSetClassHint              : _XDisplay-pointer _ulong _XClassHint-pointer -> _int)
 (defx11* XSetWMProperties           : _XDisplay-pointer _ulong _XTextProperty-pointer _XTextProperty-pointer (_ptr i _string) _int _XSizeHints-pointer _XWMHints-pointer _XClassHint-pointer -> _void)
+
+
+  ;; necessary exports for the typed/racket interface
+(provide XDisplay?)
+(provide XWindowAttributes?)
+(provide XEvent?)
 
   ;; this just makes sure everything listed in the x11 manual is
   ;; defined somewhere above
